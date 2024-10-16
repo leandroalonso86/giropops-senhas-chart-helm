@@ -1,0 +1,26 @@
+{{- range $component, $config := .Values.deploy }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $component }}
+  labels: 
+    {{- include "app.labels" $config | nindent 4 }}
+spec:
+  replicas: {{ $config.replicas }}
+  selector: 
+    matchLabels: 
+      {{ $config.labels.app }}
+  template:
+    metadata:
+      labels:
+        {{- include "app.labels" $config | nindent 8 }}
+    spec:
+      containers:
+      - image: {{ $config.image }}
+        name: {{ $component }}
+        ports:
+        {{- include "app.ports" $config | nindent 10 }}
+        resources:
+          {{- include "app.chama-bloco" $config | nindent 10 }}
+---
+{{- end }}

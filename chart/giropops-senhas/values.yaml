@@ -1,0 +1,81 @@
+deploy:
+  giropops:
+    name: "giropops-senhas-helm"
+    image: "linuxtips/giropops-senhas:1.0"
+    replicas: "1"
+    ports:
+      - port: 5000
+        targetPort: 5000
+        name: "tcp-app"
+        serviceType: "NodePort"
+        nodePort: 32500
+      - port: 8088
+        targetPort: 8088
+        name: "tcp-metrics"
+        serviceType: "ClusterIP"
+    labels: 
+      app: "giropops-senhas"
+      env: "labs"
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "256m"
+      limits:
+        memory: "256Mi"
+        cpu: "512m"
+  redis:
+    name: "redis-helm"
+    image: "redis"
+    replicas: "1"
+    ports:
+      - port: 6379
+        targetPort: 6379
+        name: "service"
+        serviceType: "ClusterIP"
+    labels:
+      app: "redis"
+      env: "labs"
+    resources:
+      limits:
+        memory: "256Mi"
+        cpu: "512m"
+      requests:
+        memory: "128Mi"
+        cpu: "256m"
+services:
+  giropops:
+    labels: 
+      app: "giropops-senhas"
+      env: "labs"
+    ports:
+      - port: 5000
+        targetPort: 5000
+        name: "tcp-app"
+        serviceType: "NodePort"
+        nodePort: 32500
+      - port: 8088
+        targetPort: 8088
+        name: "tcp-metrics"
+        serviceType: "ClusterIP"
+  redis:
+    name: redis-service
+    labels: 
+      app: "redis"
+      env: "labs"
+    ports:
+      - port: 6379
+        targetPort: 6379
+        name: "service"
+        serviceType: "ClusterIP"
+observability:
+  giropops:
+    logging: true
+    metrics:
+      enabled: true
+      path: "/metrics"
+databases:
+  giropops:
+    mysql:
+      host: "sql.server.local"
+      port: 3306
+      db-name: "Main-DB"
