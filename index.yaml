@@ -3,13 +3,13 @@ entries:
   giropops-senhas:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-10-16T11:27:29.674190679-03:00"
+    created: "2024-10-16T11:40:45.149162129-03:00"
     description: Aula de Helm do Kubernetes
     digest: bcc34910b592132020e2dfe14e6c89fb0eac579374892759c0f957270cef2f73
     name: giropops-senhas
     sources:
     - https://github.com/leandroalonso86/giropops-senhas-chart-helm
     urls:
-    - https://github.com/leandroalonso86/giropops-senhas-chart-helm/giropops-senhas-0.1.0.tgz
+    - https://leandroalonso86.github.io/giropops-senhas-chart-helm/giropops-senhas-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-16T11:27:29.673160271-03:00"
+generated: "2024-10-16T11:40:45.148173122-03:00"
